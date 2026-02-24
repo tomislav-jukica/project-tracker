@@ -1,6 +1,6 @@
 ﻿namespace ProjectTracker.Domain.Assets
 {
-    internal class AssetVersion
+    public class AssetVersion
     {
         public Guid Id { get; private set; }
         public int VersionNumber { get; private set; }

@@ -4,8 +4,7 @@ namespace ProjectTracker.Domain.Assets
 {
     public class Asset
     {
-        private readonly List<AssetVersion> _versions = [];
-        private readonly List<Tag> _tags = [];        
+        private readonly List<AssetVersion> _versions = [];  
 
         public Guid Id { get; private set; }
         public Guid ProjectId { get; private set; }
@@ -13,8 +12,8 @@ namespace ProjectTracker.Domain.Assets
         public AssetType Type { get; private set; }
         public AssetStatus Status { get; private set; }
 
-        internal IReadOnlyCollection<AssetVersion> Versions => _versions.AsReadOnly();
-        public IReadOnlyCollection<Tag> Tags => _tags.AsReadOnly();
+        public IReadOnlyCollection<AssetVersion> Versions => _versions.AsReadOnly();
+        public ICollection<Tag> Tags { get; private set; } = [];
 
         private Asset() { } // For EF
 
@@ -60,16 +59,16 @@ namespace ProjectTracker.Domain.Assets
         {
             ArgumentNullException.ThrowIfNull(tag);
 
-            if (_tags.Contains(tag))
+            if (Tags.Contains(tag))
                 return; // Already added
 
-            _tags.Add(tag);
+            Tags.Add(tag);
         }
 
         public void RemoveTag(Tag tag)
         {
             ArgumentNullException.ThrowIfNull(tag);
-            _tags.Remove(tag);
+            Tags.Remove(tag);
         }
     }
 }
